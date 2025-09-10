@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-s cale=1.0">
+    <title>🍕 피자 시뮬레이터 🍕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/EightBit.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/DOSGothic.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'DOSGothic', sans-serif;
+            background-color: #333;
+            color: #eee;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #container {
+            background-color: #222;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 90%;
+            border: 5px solid #ffcc00;
+        }
+        h1 {
+            font-family: 'EightBit', 'Press Start 2P', cursive;
+            color: #e74c3c;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.5em;
+            text-shadow: 2px 2px #ffcc00;
+        }
+        p {
+            font-size: 0.8em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-family: 'EightBit', 'Press Start 2P', cursive;
+            color: #f39c12;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1em;
+            text-shadow: 1px 1px #8b0000;
+        }
+        .dough-selection, .topping-grid, .special-topping-grid {
+            margin-bottom: 20px;
+        }
+        .dough-selection label {
+            font-size: 0.9em;
+            margin-right: 20px;
+        }
+        .topping-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 30px;
+        }
+        .topping-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #444;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 2px solid #666;
+        }
+        .topping-item label {
+            font-size: 1.0em;
+            flex-grow: 1;
+        }
+        input[type="number"] {
+            width: 40px;
+            border: 2px solid #ffcc00;
+            background-color: #222;
+            color: #eee;
+            border-radius: 3px;
+            padding: 5px;
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+        }
+        .special-topping-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 30px;
+        }
+        .special-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: #e74c3c;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 2px solid #8b0000;
+        }
+        .special-item label {
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        button {
+            font-family: 'EightBit', 'Press Start 2P', cursive;
+            padding: 12px 25px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: 4px solid #8b0000;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.1s ease-in-out;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 2px 2px #8b0000;
+        }
+        button:hover {
+            background-color: #c0392b;
+            border-color: #550000;
+        }
+        button:active {
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+        #result {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f39c12;
+            border: 4px solid #d35400;
+            border-radius: 10px;
+            font-size: 1.2em;
+            text-align: center;
+            color: #4a230f;
+            line-height: 1.4;
+            text-shadow: 1px 1px #fff;
+        }
+        #result span {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h1>🍕 PIZZA FLAVOR SIMULATOR 🍕</h1>
+        <p>원하는 토핑을 추가하여 나만의 피자 맛을 예상해 보세요!</p>
+
+        <h2>CHOOSE DOUGH</h2>
+        <div class="dough-selection">
+            <input type="radio" id="original" name="pizzaDough" value="original" checked>
+            <label for="original">오리지널 😉</label>
+            <input type="radio" id="thin" name="pizzaDough" value="thin">
+            <label for="thin">씬 도우 🫓</label>
+            <input type="radio" id="cheeseCrust" name="pizzaDough" value="cheeseCrust">
+            <label for="cheeseCrust">치즈 크러스트 💛</label>
+            <input type="radio" id="sweetPotatoCrust" name="pizzaDough" value="sweetPotatoCrust">
+            <label for="sweetPotatoCrust">고구마 크러스트 💜</label>
+        </div>
+
+        <h2>TOPPINGS SELECT</h2>
+        <div class="topping-grid">
+            <div class="topping-item"><label>페퍼로니 🥩</label><input type="number" id="pepperoniQty" value="0" min="0"></div>
+            <div class="topping-item"><label>소시지 🍖</label><input type="number" id="sausageQty" value="0" min="0"></div>
+            <div class="topping-item"><label>베이컨 🥓</label><input type="number" id="baconQty" value="0" min="0"></div>
+            <div class="topping-item"><label>쉬림프 🦐</label><input type="number" id="shrimpQty" value="0" min="0"></div>
+            <div class="topping-item"><label>버섯 🍄‍🟫</label><input type="number" id="mushroomQty" value="0" min="0"></div>
+            <div class="topping-item"><label>양파 🧅</label><input type="number" id="onionQty" value="0" min="0"></div>
+            <div class="topping-item"><label>옥수수 🌽</label><input type="number" id="cornQty" value="0" min="0"></div>
+            <div class="topping-item"><label>마늘 🧄</label><input type="number" id="garlicQty" value="0" min="0"></div>
+            <div class="topping-item"><label>올리브 🫒</label><input type="number" id="oliveQty" value="0" min="0"></div>
+            <div class="topping-item"><label>피망 🫑</label><input type="number" id="pimentQty" value="0" min="0"></div>
+            <div class="topping-item"><label>파인애플 🍍</label><input type="number" id="pineappleQty" value="0" min="0"></div>
+            <div class="topping-item"><label>브로콜리 🥦</label><input type="number" id="broccoliQty" value="0" min="0"></div>
+            <div class="topping-item"><label>감자 🥔</label><input type="number" id="potatoQty" value="0" min="0"></div>
+            <div class="topping-item"><label>고구마 🍠</label><input type="number" id="sweetPotatoQty" value="0" min="0"></div>
+        </div>
+
+        <h2>SPECIAL TOPPINGS</h2>
+        <div class="special-topping-grid">
+            <div class="special-item">
+                <input type="checkbox" id="extraCheese">
+                <label for="extraCheese">더 많은 치즈 🧀</label>
+            </div>
+            <div class="special-item">
+                <input type="checkbox" id="chiliPepper">
+                <label for="chiliPepper">청양 고추 🌶️</label>
+            </div>
+            <div class="special-item">
+                <input type="checkbox" id="buldakSauce">
+                <label for="buldakSauce">불닭 소스 🔥</label>
+            </div>
+            <div class="special-item">
+                <input type="checkbox" id="curryPowder">
+                <label for="curryPowder">카레 가루 🥘</label>
+            </div>
+            <div class="special-item">
+                <input type="checkbox" id="avocado">
+                <label for="avocado">아보카도 🥑</label>
+            </div>
+            <div class="special-item">
+                <input type="checkbox" id="fruitParty">
+                <label for="fruitParty">젤리빈 🍭</label>
+            </div>
+        </div>
+
+        <button onclick="predictFlavor()">PREDICT!</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const toppings = {
+            pepperoni: ['짭짤', '매콤'],
+            sausage: ['짭짤', '고소'],
+            bacon: ['짭짤', '고소'],
+            shrimp: ['담백', '고소'],
+            mushroom: ['담백'],
+            onion: ['아삭', '달콤'],
+            corn: ['달콤', '아삭'],
+            garlic: ['매콤', '쌉싸름'],
+            olive: ['짭짤'],
+            piment: ['아삭'],
+            pineapple: ['상큼', '달콤'],
+            broccoli: ['아삭', '담백'],
+            potato: ['고소', '담백'],
+            sweetPotato: ['달콤', '고소']
+        };
+
+        const specialToppings = {
+            extraCheese: {
+                flavorTags: ['고소'],
+                resultTag: '느끼'
+            },
+            chiliPepper: {
+                flavorTags: ['매콤', '화끈', '쌉싸름'],
+                resultTag: '화끈'
+            },
+            buldakSauce: {
+                flavorTags: ['매콤', '화끈', '불맛'],
+                resultTag: '화르륵'
+            },
+            curryPowder: {
+                flavorTags: ['짭짤', '쌉쌀', '이국적'],
+                resultTag: '이국'
+            },
+            avocado: {
+                flavorTags: ['마일드', '담백'],
+                resultTag: '마일드'
+            },
+            fruitParty: {
+                flavorTags: ['달콤', '상큼'],
+                resultTag: '요상'
+            }
+        };
+
+        const doughs = {
+            original: ['고소'],
+            thin: ['바삭', '라이트'],
+            cheeseCrust: ['고소', '짭짤'],
+            sweetPotatoCrust: ['달콤', '고소']
+        };
+
+        function predictFlavor() {
+            const selectedFlavors = {};
+            const specialResultTags = [];
+            
+            const selectedDoughId = document.querySelector('input[name="pizzaDough"]:checked').value;
+            doughs[selectedDoughId].forEach(flavor => {
+                selectedFlavors[flavor] = (selectedFlavors[flavor] || 0) + 1;
+            });
+
+            Object.keys(toppings).forEach(id => {
+                const qtyInput = document.getElementById(id + 'Qty');
+                const qty = parseInt(qtyInput.value);
+                
+                if (!isNaN(qty) && qty > 0) {
+                    toppings[id].forEach(flavor => {
+                        selectedFlavors[flavor] = (selectedFlavors[flavor] || 0) + qty;
+                    });
+                }
+            });
+
+            Object.keys(specialToppings).forEach(id => {
+                const checkbox = document.getElementById(id);
+                if (checkbox.checked) {
+                    specialToppings[id].flavorTags.forEach(flavor => {
+                        selectedFlavors[flavor] = (selectedFlavors[flavor] || 0) + 1;
+                    });
+                    specialResultTags.push(specialToppings[id].resultTag);
+                }
+            });
+
+            let dominantFlavors = [];
+            const flavorCounts = Object.values(selectedFlavors);
+            
+            if (flavorCounts.length > 0) {
+                const maxCount = Math.max(...flavorCounts);
+                dominantFlavors = Object.keys(selectedFlavors).filter(flavor => selectedFlavors[flavor] === maxCount);
+            }
+
+            const resultDiv = document.getElementById('result');
+            
+            if (dominantFlavors.length > 0) {
+                let flavorString = dominantFlavors.join(' ');
+                let specialTagString = specialResultTags.length > 0 ? specialResultTags.join(' ') + ' ' : '';
+                
+                resultDiv.innerHTML = `🌟 당신의 피자 맛은 <span>${specialTagString}${flavorString}</span>!`;
+            } else {
+                resultDiv.innerHTML = `🌟 토핑과 도우를 선택하면 맛을 예상해 드릴게요!`;
+            }
+        }
+    </script>
+
+</body>
+</html>
